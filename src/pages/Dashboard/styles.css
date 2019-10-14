@@ -71,6 +71,7 @@ ul.notifications .btn-accept {
 	font-weight: bold;
 	margin-top: 20px;
 	background-color: #7259C1;
+	cursor: pointer;
 }
 ul.notifications .btn-deny {
 	margin-right: 10px;
@@ -81,4 +82,5 @@ ul.notifications .btn-deny {
 	font-weight: bold;
 	margin-top: 20px;
 	background-color: transparent;
+	cursor: pointer;
 }
