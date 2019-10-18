@@ -1,6 +1,12 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import api from '../../services/api'
+
+import Input from '@material-ui/core/Input';
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import Chip from '@material-ui/core/Chip'
+import Checkbox from '@material-ui/core/Checkbox'
 
 import './styles.css'
 
@@ -9,7 +15,8 @@ import camera from '../../assets/camera.svg'
 export default function NewSpot( {history} ) {
 	const [thumbnail, setThumbnail] = useState(null)
 	const [company, setCompany] = useState('')
-	const [techs, setTechs] = useState('')
+	const [techs, setTechs] = useState([])
+	const [ allTechs, setAllTechs ] = useState([])
 	const [price, setPrice] = useState('')
 
 	const preview = useMemo(() => {
@@ -32,6 +39,30 @@ export default function NewSpot( {history} ) {
 		})
 
 		history.push('/dashboard')
+	}
+	
+	useEffect(() => {
+		async function getTechs() {
+			const response = await api.get('/techs')
+			const techs = response.data
+			const techArray = techs.map(techs => techs.techName)
+			
+			setAllTechs(techArray)
+		}
+
+		getTechs()
+	}, [])
+	
+
+	const ITEM_HEIGHT = 48;
+	const ITEM_PADDING_TOP = 8;
+	const MenuProps = {
+		PaperProps: {
+			style: {
+				maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+				width: 250,
+			},
+		},
 	}
 
   return (
@@ -62,13 +93,30 @@ export default function NewSpot( {history} ) {
 					/>
 
 					<label htmlFor="techs">Tecnologias * <span>(separadas por vírgula)</span></label>
-					<input 
+					<Select
+						className="select"
+						multiple
+						value={techs}
+						onChange={event => setTechs(event.target.value)}
+						input={<Input id="techs" />}
+						renderValue={selected => selected.join(', ')}
+						MenuProps={MenuProps}
+					>
+						{allTechs.map(tech => (
+							<MenuItem key={tech} value={tech} >
+								<Checkbox checked={techs.indexOf(tech) > -1} />
+								{tech}
+							</MenuItem>
+						))}
+					</Select>
+					
+					{/* <input 
 						id="techs"
 						placeholder="Tecnologias utilizadas"
 						type="text"
 						value={techs}
 						onChange={event => setTechs(event.target.value)}
-					/>
+					/> */}
 
 					<label htmlFor="techs">Preço * <span>(em branco para Gratuito)</span></label>
 					<input 

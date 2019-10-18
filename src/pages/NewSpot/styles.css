@@ -1,5 +1,5 @@
 .container-newspot {
-	margin: 80 auto;
+	margin: 0 auto;
 	width: 50%;
 	min-width: 400px;
 	display: flex;
@@ -47,4 +47,20 @@ label#thumbnail.with-thumbnail img {
 
 label#thumbnail.with-thumbnail span {
 	display: none;
+}
+
+root {
+	display: 'flex';
+	flex-wrap: 'wrap';
+}
+formControl {
+	min-width: 120;
+	max-width: 300;
+}
+chips {
+	display: 'flex';
+	flex-wrap: 'wrap';
+}
+chip {
+	margin: 2,
 }

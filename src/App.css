@@ -84,6 +84,15 @@ body, input, button {
   font-size: 16px;
 }
 
+.content form .select {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  height: 45px;
+  padding: 0 15px;
+  font-size: 16px;
+}
+
 .content button.btn-primary {
   border: 0;
   border-radius: 4px;
